@@ -1,17 +1,18 @@
 import { Star } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
-function MovieCard({movie}:{movie:MovieInterfaceType}) {
+function MovieCard({movie}:{movie:MovieType}) {
   return (
     <Link href={`/${movie.id}`} className="bg-[rgba(247,247,247,0.05)] rounded-[16px] overflow-hidden transition-all duration-400 ease-in-out cursor-pointer border border-transparent hover:-translate-y-2 hover:bg-[rgba(247,247,247,0.1)] hover:border-[#2E7D32] hover:shadow-[0_20px_40px_rgba(46,125,50,0.2)]">
-      {/* <Image
-        src="/images/movie.webp"
-        alt="Movie Poster"
+      <Image
+        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+        alt={movie.title}
         width={400}
         height={600}
-        className="w-full h-auto object-cover"
-      /> */}
-      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} height={600} width={400} className="w-full h-auto object-cover" />
+        className="w-full h-[300px] object-cover"
+      />
+      
       <div className="p-4 text-left">
         <h1 className="text-success-content text-xl font-medium mb-2">
           {movie.title}

@@ -1,7 +1,7 @@
 "use client"
 interface MovieReturnType {
     page: number;
-    results: MovieInterfaceType[];
+    results: MovieType[];
     total_pages: number;
     total_results: number;
 }

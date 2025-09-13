@@ -1,14 +1,6 @@
-declare type MovieType = {
-    id: number;
-    title: string;
-    genre: string;
-    year: number;
-    rating: number;
-    posterUrl: string;
-    description: string;
-}
 
-declare type MovieInterfaceType = {
+
+declare type MovieType = {
     adult: boolean;
     backdrop_path: string;
     genre_ids: number[];
