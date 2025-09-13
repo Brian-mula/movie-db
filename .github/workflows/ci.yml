@@ -24,5 +24,10 @@ jobs:
       - name: Run format check
         run: npm run format
 
+      - name: Validate Convex functions
+        run: |
+          npx convex codegen
+          npx convex check
+
       - name: Run Build
-        run: npm run build
+        run: npx convex deploy --cmd 'npm run build'
