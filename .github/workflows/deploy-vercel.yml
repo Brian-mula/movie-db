@@ -3,7 +3,7 @@ name: Vercel Production Deployment
 env:
     VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
     VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID}}
-    CONVEX_DEPL0Y_KEY: ${{secrets.CONVEX_DEPLOY_KEY}}
+    CONVEX_DEPLOY_KEY: ${{secrets.CONVEX_DEPLOY_KEY}}
     VERCEL_TOKEN: ${{secrets.VERCEL_TOKEN}}
 
 on:
@@ -35,7 +35,7 @@ jobs:
               run: npm install -g convex
 
             - name: Deploy Convex Functions
-              run: convex deploy --admin-key=$CONVEX_DEPL0Y_KEY
+              run: convex deploy --admin-key=$CONVEX_DEPLOY_KEY
 
     deploy-prod:
         if: github.ref == 'refs/heads/prod'
