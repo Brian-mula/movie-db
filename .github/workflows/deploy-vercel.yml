@@ -1,0 +1,62 @@
+name: Vercel Production Deployment
+
+env:
+    VERCEL_ORG_ID: ${{secrets.VERCEL_ORG_ID}}
+    VERCEL_PROJECT_ID: ${{secrets.VERCEL_PROJECT_ID}}
+    CONVEX_DEPLOY_KEY: ${{secrets.CONVEX_DEPLOY_KEY}}
+    VERCEL_TOKEN: ${{secrets.VERCEL_TOKEN}}
+
+on:
+    push:
+        branches:
+            - main
+            - prod
+
+jobs:
+    deploy-dev:
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+                
+            - name: Install Vercel CLI
+              run: npm install --global vercel
+
+            - name: Pull Vercel Environment (Development)
+              run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+
+            - name: Build Project Artefacts(Development)
+              run: vercel build --prod --token=$VERCEL_TOKEN
+
+            - name: Deploy Project Artefacts(Development)
+              run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+
+            - name: Install Convex CLI
+              run: npm install -g convex
+
+            - name: Deploy Convex Functions
+              run: convex deploy --admin-key=$CONVEX_DEPLOY_KEY
+
+    deploy-prod:
+        if: github.ref == 'refs/heads/prod'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+                
+            - name: Install Vercel CLI
+              run: npm install --global vercel
+
+            - name: Pull Vercel Environment (Production)
+              run: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+
+            - name: Build Project Artefacts(Production)
+              run: vercel build --prod --token=$VERCEL_TOKEN
+
+            - name: Deploy Project Artefacts(Production)
+              run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+
+            - name: Install Convex CLI
+              run: npm install -g convex
+
+            - name: Deploy Convex Functions
+              run: convex deploy --admin-key=$CONVEX_DEPLOY_KEY
