@@ -54,3 +54,9 @@ jobs:
 
             - name: Deploy Project Artefacts(Production)
               run: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+
+            - name: Install Convex CLI
+              run: npm install -g convex
+
+            - name: Deploy Convex Functions
+              run: convex deploy --admin-key=$CONVEX_DEPLOY_KEY
