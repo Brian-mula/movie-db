@@ -1,4 +1,5 @@
 import { ConvexClientProvider } from "@/components/convex-client-provider";
+import ReactQueryProvider from "@/components/react-query-provider";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -23,17 +24,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <ConvexClientProvider>
-        <Toaster
-          toastOptions={{
-            style: {
-              fontSize: "10px",
-            },
-            duration: 1200,
-          }}
-          position="top-right"
-        />
-        {children}
-
+          <Toaster
+            toastOptions={{
+              style: {
+                fontSize: "10px",
+              },
+              duration: 1200,
+            }}
+            position="top-right"
+          />
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </ConvexClientProvider>
       </body>
     </html>

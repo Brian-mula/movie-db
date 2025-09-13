@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 import Link from "next/link";
 
-function MovieCard({movie}:{movie:MovieType}) {
+function MovieCard({movie}:{movie:MovieInterfaceType}) {
   return (
     <Link href={`/${movie.id}`} className="bg-[rgba(247,247,247,0.05)] rounded-[16px] overflow-hidden transition-all duration-400 ease-in-out cursor-pointer border border-transparent hover:-translate-y-2 hover:bg-[rgba(247,247,247,0.1)] hover:border-[#2E7D32] hover:shadow-[0_20px_40px_rgba(46,125,50,0.2)]">
       {/* <Image
@@ -11,18 +11,18 @@ function MovieCard({movie}:{movie:MovieType}) {
         height={600}
         className="w-full h-auto object-cover"
       /> */}
-      <img src={movie.posterUrl} alt={movie.title} height={600} width={400} className="w-full h-auto object-cover" />
+      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} height={600} width={400} className="w-full h-auto object-cover" />
       <div className="p-4 text-left">
         <h1 className="text-success-content text-xl font-medium mb-2">
           {movie.title}
         </h1>
         <p className="text-primary-content text-[0.95rem] leading-[1.5] overflow-hidden line-clamp-3">
-            {movie.description}
+            {movie.overview}
         </p>
 
         <div className="inline-block bg-[#2E7D32] text-white py-[0.3rem] px-[0.8rem] rounded-[20px] text-[0.85rem] font-medium mt-4">
           <Star className="inline-block w-4 h-4 mr-1 mb-0.5" />
-          <span>{movie.rating}</span>
+          <span>{Math.floor(movie.vote_average)}</span>
         </div>
       </div>
     </Link>
