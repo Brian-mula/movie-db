@@ -1,3 +1,4 @@
+import { ConvexClientProvider } from "@/components/convex-client-provider";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
+        <ConvexClientProvider>
         <Toaster
           toastOptions={{
             style: {
@@ -31,6 +33,8 @@ export default function RootLayout({
           position="top-right"
         />
         {children}
+
+        </ConvexClientProvider>
       </body>
     </html>
   );
