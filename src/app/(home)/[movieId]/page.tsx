@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 
 function MovieDetails() {
   const param = useParams<{ movieId: string }>();
-  const { data, isPending, error } = useQuery<MovieDetailsType>({
+  const { data, isPending, error } = useQuery<MovieType,Error>({
     queryKey: ["movies", param.movieId],
     queryFn: () => fetchMovieById(param.movieId),
   });
