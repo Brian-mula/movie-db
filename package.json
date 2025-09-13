@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier --write '*.{ts,tsx,js,jsx,css,html}'"
   },
   "dependencies": {
     "lucide-react": "^0.544.0",
