@@ -1,4 +1,40 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+
+
+@plugin "daisyui/theme" {
+  name:'light';
+  default: true;
+  prefersdark: true;
+
+  --color-primary: #1C1C1C;
+  --color-primary-content: #666666;
+  --color-secondary: #F7F7F7;
+  --color-accent: #114243;
+
+  --color-success: #2E7D32;
+  --color-success-content: #FFFFFF;
+  
+  --color-error: #D64545;
+  --color-error-content: #FFFFFF;
+
+  /* border radius */
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* border size */
+  --border: 1px;
+
+  /* effects */
+  --depth: 1;
+  --noise: 0;
+}
 
 :root {
   --background: #ffffff;
@@ -14,8 +50,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #171717;
   }
 }
 
