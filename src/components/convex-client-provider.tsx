@@ -18,12 +18,12 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
             {children}
         </Authenticated>
         <Unauthenticated>
-            <div className="flex flex-col bg-[#114243] min-h-screen items-center justify-center p-4">
+            <div className="flex flex-col bg-neutral-900 min-h-screen items-center justify-center p-4">
             <SignIn/>
             </div>
         </Unauthenticated>
         <AuthLoading>
-            <div className="flex flex-col bg-[#114243] min-h-screen items-center justify-center p-4">
+            <div className="flex flex-col bg-neutral-900 min-h-screen items-center justify-center p-4">
                 <SunIcon className="animate-spin text-white" size={24}/>
             </div>
         </AuthLoading>

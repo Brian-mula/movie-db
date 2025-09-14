@@ -9,14 +9,23 @@ interface MovieReturnType {
 import { fetchMovies, searchMovies } from "@/utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import { SunIcon } from "lucide-react";
+import { useState } from "react";
+import Pagination from "../shared/pagination";
 import MovieCard from "./movie-card";
 
 function MovieList({ query }: { query?: string }) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
   const trimmedQuery = query?.trim() || "";
   const { data, isPending, error } = useQuery<MovieReturnType, Error>({
-    queryKey: ["movies", trimmedQuery],
-    queryFn: () => (trimmedQuery ? searchMovies(trimmedQuery) : fetchMovies()),
+    queryKey: ["movies", trimmedQuery, currentPage],
+    queryFn: () =>
+      trimmedQuery ? searchMovies(trimmedQuery) : fetchMovies(currentPage),
   });
+
   console.log(data);
   if (isPending)
     return (
@@ -40,10 +49,17 @@ function MovieList({ query }: { query?: string }) {
     );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 py-6 ">
-      {data.results.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 py-6 ">
+        {data.results.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={data.total_pages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }
