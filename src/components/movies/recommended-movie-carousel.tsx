@@ -22,7 +22,7 @@ function RecommendedMovieCarousel() {
 
     fetchData();
   }, [getRecommendations]);
-  if (!recoomendedMovies || recoomendedMovies.results.length === 0) {
+  if (!recoomendedMovies || !recoomendedMovies.results || recoomendedMovies.results.length === 0) {
     return null;
   }
   return (
