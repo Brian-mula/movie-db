@@ -1,10 +1,12 @@
 "use client";
 
 import MovieList from "@/components/movies/movie-list";
+import RecommendedMovieCarousel from "@/components/movies/recommended-movie-carousel";
 import { useState } from "react";
 
 function HomePage() {
   const [query, setQuery] = useState("");
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
@@ -21,8 +23,14 @@ function HomePage() {
           placeholder="search for the movie..."
         />
       </div>
+      {
+        query.trim() === "" && <RecommendedMovieCarousel />
+      }
+      <h1 className="text-primary-content px-4 py-2 md:px-16 lg:px-28 xl:px-36 2xl:px-[30rem]text-xl lg:text-2xl ">
+        All Movies
+      </h1>
       <div className="w-full px-4 py-2 md:px-8 lg:px-12 xl:px-16 2xl:px-[30rem]  flex justify-center items-center">
-       <MovieList query={query} />
+        <MovieList query={query} />
       </div>
     </>
   );

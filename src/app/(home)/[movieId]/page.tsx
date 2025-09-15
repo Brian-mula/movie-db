@@ -1,7 +1,9 @@
 "use client";
 
 import MetaItem from "@/components/movies/meta-item";
-import { fetchMovieById } from "@/utils/utils";
+import MovieCard from "@/components/movies/movie-card";
+import { MovieReturnType } from "@/components/movies/movie-list";
+import { fetchMovieById, fetchRecommendedMovies } from "@/utils/utils";
 import { useQuery } from "@tanstack/react-query";
 import { SunIcon } from "lucide-react";
 import Image from "next/image";
@@ -13,7 +15,20 @@ function MovieDetails() {
     queryKey: ["movies", param.movieId],
     queryFn: () => fetchMovieById(param.movieId),
   });
-  console.log(data);
+  // console.log(data);
+  const {
+    data: recommendedMovies,
+    isPending: recommendedMoviesPending,
+    error: recommendedMoviesError,
+  } = useQuery<MovieReturnType, Error>({
+    queryKey: ["recommendedMovies", param.movieId],
+    queryFn: () => fetchRecommendedMovies(param.movieId),
+  });
+ const availableMovies = recommendedMovies?.results.slice(0, 6) 
+
+ 
+
+  // console.log(recommendedMovies);
   if (isPending)
     return (
       <div className="h-[calc(100vh-10rem)] flex flex-col items-center justify-center w-full bg-neutral-900">
@@ -28,7 +43,7 @@ function MovieDetails() {
     );
 
   return (
-    <div className="w-full px-4 py-12 md:py-24 lg:py-16 xl:py-24 md:px-8 lg:px-12 xl:px-16 2xl:px-[30rem]  flex justify-center items-center">
+    <div className="w-full px-4 py-12 md:py-24 lg:py-16 xl:py-24 md:px-8 lg:px-12 xl:px-16 2xl:px-[30rem]  ">
       <div className="grid grid-cols-1 gap-8 mb-12 md:grid-cols-[350px_1fr] md:gap-12">
         <div className="w-full h-[500px] bg-gradient-to-br from-[#666666] to-[#1C1C1C] rounded-[16px] flex items-center justify-center text-[4rem] text-[#666666] relative overflow-hidden">
           <Image
@@ -48,10 +63,7 @@ function MovieDetails() {
           </q>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
             {/* meta data */}
-            <MetaItem
-              title="Status"
-              value={data.status}
-            />
+            <MetaItem title="Status" value={data.status} />
             <MetaItem
               title="Rating"
               value={`${Math.floor(data.vote_average)} / 10`}
@@ -98,7 +110,9 @@ function MovieDetails() {
           </div>
 
           <div className="mb-6">
-            <h1 className="text-xl font-medium uppercase">Production Companies</h1>
+            <h1 className="text-xl font-medium uppercase">
+              Production Companies
+            </h1>
             {
               <div className="flex flex-wrap gap-2 mt-2">
                 {data.production_companies.map((company) => (
@@ -111,10 +125,11 @@ function MovieDetails() {
                 ))}
               </div>
             }
-
           </div>
           <div className="mb-6">
-            <h1 className="text-xl font-medium uppercase">Production Countries</h1>
+            <h1 className="text-xl font-medium uppercase">
+              Production Countries
+            </h1>
             {
               <div className="flex flex-wrap gap-2 mt-2">
                 {data.production_countries.map((country) => (
@@ -128,7 +143,7 @@ function MovieDetails() {
               </div>
             }
           </div>
-              <div>
+          <div>
             <h1 className="text-xl font-medium uppercase">Spoken Languages</h1>
             {
               <div className="flex flex-wrap gap-2 mt-2">
@@ -142,10 +157,35 @@ function MovieDetails() {
                 ))}
               </div>
             }
-              </div>
-          
+          </div>
         </div>
       </div>
+     <div className="flex justify-center items-center flex-col px-4">
+     <div className="py-8 w-full ">
+        <h1 className="text-xl text-primary-content">Recommended Movies</h1>
+
+        {recommendedMoviesPending && (
+          <div className="h-24 flex flex-col items-center justify-center w-full bg-neutral-900">
+            <SunIcon className="animate-spin text-success-content" size={24} />
+          </div>
+        )}
+
+        {recommendedMoviesError && (
+          <div className="h-24 flex flex-col items-center justify-center w-full bg-neutral-900 text-error">
+            Error: {recommendedMoviesError.message}
+          </div>
+        )}
+        {recommendedMovies && recommendedMovies.results.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 py-6">
+            {availableMovies?.map((movie,index) => (
+              <MovieCard key={movie.id} movie={movie} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </div>
+     </div>
     </div>
   );
 }

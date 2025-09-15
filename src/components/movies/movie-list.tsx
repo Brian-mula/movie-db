@@ -1,5 +1,5 @@
 "use client";
-interface MovieReturnType {
+export interface MovieReturnType {
   page: number;
   results: MovieType[];
   total_pages: number;
@@ -39,7 +39,7 @@ function MovieList({ query }: { query?: string }) {
         Error: {error.message}
       </div>
     );
-  // if(!data || data.length === 0) return <div>No movies found</div>
+
 
   if (!data || data.results.length === 0)
     return (
@@ -50,9 +50,9 @@ function MovieList({ query }: { query?: string }) {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 py-6 ">
-        {data.results.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-2 py-6 ">
+        {data.results.map((movie,index) => (
+          <MovieCard key={movie.id} movie={movie} index={index} />
         ))}
       </div>
       <Pagination
