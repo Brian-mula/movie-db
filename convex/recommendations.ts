@@ -2,7 +2,8 @@ import { ConvexError, v } from "convex/values";
 import { api } from "./_generated/api";
 import { action, mutation, query } from "./_generated/server";
 
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_API_KEY =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYmMxNTY1OTdkMWM0OWEyMGQ2NDUzMWUxZWQ5MzBlZiIsIm5iZiI6MTc1NzY2NDU1NC4wODMwMDAyLCJzdWIiOiI2OGMzZDUyYWI2M2I5ODE4NDkxOTlkYjciLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.d3MU-hYxen6aLmfYIuKXYm3J5VKpkMxjJ0U9AZTfLVk";
 export const create = mutation({
   args: {
     movieId: v.number(),
@@ -66,9 +67,12 @@ export const getUseRecommendations = action({
     if (!user) {
       throw new ConvexError("Unauthorized");
     }
-    const interactions:number[] = await ctx.runQuery(api.recommendations.get, {});
+    const interactions: number[] = await ctx.runQuery(
+      api.recommendations.get,
+      {}
+    );
     if (interactions.length === 0) {
-      return {page:1,results:[],total_pages:0,total_results:0};
+      return { page: 1, results: [], total_pages: 0, total_results: 0 };
     }
     // No history yet → fallback to TMDB trending}
     const genreParam = interactions.join(",");
