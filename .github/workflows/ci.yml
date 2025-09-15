@@ -28,6 +28,9 @@ jobs:
       - name: Run format check
         run: npm run format
 
+      - name: Run tests
+        run: npm run test:ci
+
       - name: Generate Convex types
         run: npx convex codegen
 
