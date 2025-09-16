@@ -26,9 +26,11 @@ function HomePage() {
       {
         query.trim() === "" && <RecommendedMovieCarousel />
       }
+      <div className="w-full px-4 py-2 md:px-16 lg:px-16 xl:px-16 2xl:px-[40rem]">
       <h1 className="text-primary-content px-4 py-2 md:px-16 lg:px-28 xl:px-36 2xl:px-[30rem]text-xl lg:text-2xl ">
         All Movies
       </h1>
+      </div>
       <div className="w-full px-4 py-2 md:px-8 lg:px-12 xl:px-16 2xl:px-[30rem]  flex justify-center items-center">
         <MovieList query={query} />
       </div>

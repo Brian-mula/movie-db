@@ -26,10 +26,11 @@ function RecommendedMovieCarousel() {
     return null;
   }
   return (
-    <div className="px-4 py-2 md:px-16 lg:px-28 xl:px-36 2xl:px-[30rem]text-xl lg:text-2xl w-full">
-      <h1 className="text-lg lg:text-2xl text-primary-content py-4">
+    <div className="px-4 py-2 md:px-10 lg:px-14 xl:px-28 text-xl lg:text-2xl w-full">
+      <h1 className="text-lg lg:text-2xl text-primary-content py-4 xl:px-20 2xl:px-[40rem]">
         Recommended Movies
       </h1>
+      <div className="w-full px-4 py-2 md:px-8 lg:px-12 xl:px-16 2xl:px-[40rem]  flex justify-center items-center">
       <Swiper
       modules={[Autoplay]}
         spaceBetween={16}
@@ -53,6 +54,8 @@ function RecommendedMovieCarousel() {
           </SwiperSlide>
         ))}
       </Swiper>
+      </div>
+      
     </div>
   );
 }
